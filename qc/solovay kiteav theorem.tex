@@ -1,0 +1,30 @@
+\section{Solovay-Kitaev Theorem}
+In the previous section, we approximated any single qubit gates using the Hadamard, Phase and $\pi$/8 gates. But, how many of these universal gates are needed to simulate a gate? This question is answered by the \textbf{\textit{Solovay-Kitaev Theorem}}. According to this theorem, any gate can be simulated upto a tolerance of $\epsilon$ using $O(log^c(\frac{1}{\epsilon}))$ universal gates where c is constant between 1 and 2.\\
+\subsection{Proof of Solovay Kitaev theorem}
+\textbf{SOLOVAY KITAEV THEOREM}: Let ${G}$ be a finite set of elements in \textit{SU(2)} containing its own inverses, such that $\langle G\rangle$ is dense in \textit{SU (2)}. Let $\epsilon > 0$ be given. Then ${G_l}$ is an $\epsilon-net$ in \textit{SU(2)} for ${l} = O(log^c (1/\epsilon))$, where c $\simeq$ 4.(The actual value of c is less but it is easier to show for 4).
+\subsubsection{Notations used}
+
+\begin{enumerate}
+\item \textbf{\textit{SU(2)}}: The set of all single qubit unitary matrices with determinant equal to one. Any single qubit unitary operator can be written as a product of elements of \textit{SU(2)} upto an unimportant global factor.
+\item \textbf{$G$}: Finite set of elements of \textit{SU(2)} which is used to simulate all other operators. In our case it is H, S, T gates along with their inverses with some global factor s.t. the determinant is 1.
+\item \textbf{${G_l}$}: Set of all words of length ${l}$ formed by elements of ${G}$.
+\item $\langle G \rangle$: Union of \textit{$G_l$} for all \textit{l}.
+\item .\textbf{\textit{Distance Function}}: We need a distance function to quantify the approximation. We use trace distance in this case,\begin{equation}
+ D(U,V) = tr|U-V| \text{ where } |U| \equiv \sqrt{U^\dagger U}
+ \end{equation}
+\item \textbf{\textit{Dense Subset and $\epsilon$-net}}: A subset is said to be dense if for all $\epsilon>0$  and for all elements of the set, there exists an element in the subset such that their distance is less than $\epsilon$. A subset \textit{S} is said to be $\epsilon-net$ of another subset \textit{W} if all elements of \textit{W} lie within an $\epsilon$ distance from some element of \textit{S}. 
+\end{enumerate}
+The proof involves repetitive use of the following lemma:\\
+\textbf{\textit{Lemma}} : Let $G$ be a finite set of elements in \textit{SU(2)} containing its own inverses, and such that $\langle G \rangle$ is dense in \textit{SU(2)}. There exists a universal constant $\epsilon_0$ independent of $G$, such that for any $\epsilon \leq \epsilon_0$, if $G_l$ is an $\epsilon^2-net$ for $S_\epsilon$, then $G_{5l}$ is a $C \epsilon^3 -net$ for $S_{\sqrt{C}\epsilon^{3/2}}$ for some constant $C$. Here $S_\epsilon$ denotes an $\epsilon$ neighbourhood of $I$.\\
+Since $\langle G \rangle$ is dense in \textit{SU(2)} we can find $l_0$ such that $G_{l_0}$ is an $\epsilon_0^2 - net$ for \textit{SU(2)} and hence for $S_{\epsilon_0}$. Applying the above lemma, we get that for $l= 5l_0$, $G_l$ is $C\epsilon_0^3-net$ for $S_{\sqrt{C}\epsilon_0^{3/2}}$. Repetitively applying the above lemma, we get for $l = 5^k l_0$, $G_l$ is $\epsilon(k)^2-net$ for $S_{\epsilon(k)}$.where
+\begin{equation}
+\epsilon(k) = \frac{(C \epsilon_0)^{(3/2)^k}}{C}
+\end{equation}We my assume $C\epsilon_0 < 1$ and so $\epsilon(k)$ decreases with k. So, we may get as close to $I$ with as much accuracy as needed.\\
+Now let $U \in SU(2)$ be the operator to be approximated. Let $U_0\in G_{l_0}$ be $\epsilon(0)^2$- approximation of $U$. Let $V_0 = UU_0^\dagger$. Then
+\begin{equation}
+D(V_0,I) = tr|V_0 - I| = tr|U-U_0| < \epsilon(0)^2 < \epsilon(1)
+\end{equation}So, $V_0$ lies in $S_{\epsilon(1)}$ and hence we have $\epsilon(1)^2$-approximation of $V_0$ in $G_{5l_0}$ say $U_1$. Continuing in the same way as before, we define $V_1 = V_0U_1^\dagger = UU_0^\dagger U_1^\dagger$and find that $V_1$ lies in $S_{\epsilon(2)}$. By repetitively doing this, we can approximate $U$ to $\epsilon(k)^2$ for any $k$. For this number of gates required are $l_0 + 5l_0 .... 5^k l_0 \simeq \frac{5}{4}5^k l_0$. If we want an accuracy of $\epsilon$ , then we would want $k$ such that $\epsilon(k)^2 < \epsilon$. Substituting $\epsilon(k)$, we get
+\begin{equation}
+\left( \frac{3}{2} \right)^k < \frac{log(1/C^2\epsilon)}{2log(1/C\epsilon_0)}
+\end{equation}So, number of gates required to approximate within $\epsilon$ in $O(log^c(1/\epsilon))$ where $c = \frac{\log{5}}{\log{3/2}} \approx 4$. Hence, the Solovay-Kitaev Theorem is proved.
+\newpage

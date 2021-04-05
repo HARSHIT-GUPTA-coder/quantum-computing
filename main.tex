@@ -1,0 +1,65 @@
+\documentclass[12pt,a4paper]{report}
+\usepackage{graphicx}
+\usepackage{pdfpages}
+\usepackage{tikz}
+\usepackage{geometry}
+\usepackage{latexsym}
+\usepackage{amsmath}
+\usepackage{subcaption}
+\usepackage{hyperref}
+\usepackage{csquotes}
+\usepackage{amssymb}
+\usetikzlibrary{calc}
+\usepackage{import}
+
+\geometry{a4paper, margin=2cm}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=cyan,
+    filecolor=magenta,      
+    urlcolor=blue,
+}
+
+\begin{document}
+\import{./}{title}
+\tableofcontents
+\part{Quantum Circuits}
+\chapter{Classical Ideas}
+\section{Introduction}
+To learn quantum phenomena, it is quite helpful to first learn the classical constructs and techniques already available as various things in quantum are built as an analogy to the classical case. This chapter introduces the basic concepts in classical computing. I will start with the Turing machine model and circuit model for computation and establish the relationship between these two models. Then I will move on to the computational complexity analysis,a field which examines the time and space requirements necessary to solve particular computational problems, and provides a broad classification of problems based upon their difficulty of solution.
+\newpage
+\import{./classical/}{turing}
+\import{./classical/}{analysis}
+\import{./classical/}{complexity}
+
+\chapter{Basics of Quantum Mechanics}
+\section{Introduction}
+This chapter explains the various concepts and notations needed to study quantum computing. The quantum computing requires a bit of linear algebra, so it is better to revise it up before starting with quantum mechanics. Then, I will move on to two different ways of dealing with quantum mechanics, by defining {\it the quantum state} or by defining {\it density operator}.\\
+\import{./qm/}{notations}
+\import{./qm/}{postulates}
+\import{./qm/}{density}
+
+\chapter{Quantum Circuits}
+\section{Introduction}
+This chapter onwards, we start with quantum computing. The basic entity used to store information in a quantum computer is a qubit and all the operations in a quantum computer can be decomposed into operations on these qubits. Then we move on to describe what all operations can be done on single as well as multiple qubits ending with a few algorithms to perform simple operations on a quantum computer.  
+\import{./qc/}{qubit}
+\import{./qc/}{operations}
+\import{./qc/}{measurement}
+\import{./qc/}{universal gates}
+\import{./qc/}{solovay kiteav theorem}
+
+
+\part{Algorithms}
+\import{./algorithms/}{deutch-josza}
+\import{./algorithms/}{simon}
+\import{./algorithms/}{fourier transform}
+\chapter{Applications of Quantum Fourier Transform}
+\import{./algorithms/applications of qft/}{phase estimation}
+\import{./algorithms/applications of qft/}{order finding}
+\import{./algorithms/applications of qft/}{shor}
+\import{./algorithms/applications of qft/}{factorization}
+
+
+\import{./algorithms/}{quantum search}
+\end{document}  

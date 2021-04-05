@@ -1,0 +1,81 @@
+
+\section{Another Way to Define Quantum Systems - \\ Density Operator}
+The density operator is used to define a quantum system whose states are not exactly known. If we have the quantum system in one of the states $|\psi_i \rangle$ with probability $p_i$, then {\it density operator} is defined as :
+\begin{equation}
+\rho = \sum_i p_i |\psi_i \rangle \langle \psi_i |
+\end{equation}
+The pair $\{ p_i, |\psi_i \rangle\}$ is known as an ensemble of pure states.\\
+It turn out that the postulates of quantum mechanics can be re-written in the form of density operator. Hence, the density operator representation of a quantum system is complete. \\
+Since, the density operator representation of a system is complete, we must be able to define density operator without using the state vectors. We can define the density operator as follows :\\ 
+An operator $\rho$ is the density operator associated to some ensemble  $\{ p_i, |\psi_i \rangle\}$ if and only if it satisfies the following condition : 
+\begin{enumerate}
+\item $\rho$ has a unit trace
+\item $\rho$ is a positive operator(a hermitian operator with positive eigenvalues.)
+\end{enumerate}
+The proof of the above statement is easy to see. Since $\rho$ is a positive operator, it has a spectral decomposition as 
+\begin{equation}
+\rho = \sum_i \lambda_i |i\rangle \langle i|
+\end{equation}
+comparing it with the ensemble definition it turns out that $p_i = \lambda_i$ and $|\psi_i\rangle = |i\rangle $ is a valid ensemble definition corresponding to the density operator $\rho$. The first condition is required so as to meet the total probability criteria i.e. 
+\begin{equation}
+\begin{split}
+\sum_i p_i =1 \\
+\sum_i \lambda_i = 1\\
+Trace(\rho ) =1
+\end{split}
+\end{equation}
+Along with this, if the system is in pure state (only one of the states is possible), then 
+\begin{equation}
+Trace(\rho_{pure}^2) = 1
+\end{equation}
+If the system is not in \textit{pure state} then it is said to be in \textit{mixed state}.\\
+An important point to remember is that the ensemble corresponding to a density operator is not unique. This means that two different ensembles may have the same density operator. If two ensemble say $\{p_i,|\psi_i\rangle \}$ and $\{q_j,|\phi_j\rangle \}$has the same density operator, then
+\begin{equation}
+\sqrt{p_i} | \psi_i \rangle = \sum_j u_{i,j} \sqrt{q_j}|\phi_j \rangle
+\end{equation}
+where $u_{i,j}$ is a unitary matrix of complex numbers, with indices \textit{i} and \textit{ j } . The converse of the above statement is also true.
+\newpage
+\subsection{Postulates of Quantum Mechanics in terms of\\ Density Operator}
+{\bf Postulate 1: } Associated to any isolated physical system is a complex vector space with inner product (that is, a Hilbert space) known as the state space of the system. The system is completely described by its density operator, which is a positive operator $\rho$ with trace one, acting on the state space of the system. If a quantum system is in the state $\rho_i$ with probability $p_i$, then the density operator for the system is $\sum_i p_i \rho_i$.\\\\
+{\bf Postulate 2: }The evolution of a closed quantum system is described by a unitary
+transformation. That is, the state $rho$ of the system at time $t_1$ is related to the state $\rho'$ of the system at time $t_2$ by a unitary operator $U$ which depends only on the times $t_1$ and $t_2$ ,
+\begin{equation}
+\rho ' = U \rho U^{\dagger}
+\end{equation}
+{\bf Postulate 3: }Quantum measurements are described by a collection $\{M_m\}$ of {\it measurement operators}. These are operators acting on the state space of the system being measured. The index {\it m} refers to the measurement outcomes that may occur in the experiment. If the state of the quantum system is $\rho$ immediately before the measurement then the probability that result \textit{m} occurs is given by
+\begin{equation}
+p(m) = tr(M_m^\dagger M_m \rho)
+\end{equation}and the state of system after measurement is given by
+\begin{equation}
+\rho ' = \frac{M_m \rho M_m^\dagger}{ tr(M_m^\dagger M_m \rho)}
+\end{equation}
+The measurement operator satisfies the \textit{completeness equation}:
+\[ \sum_m = M_m^\dagger M_m = I\]
+{\bf Postulate 4: }The state space of a composite physical system is the tensor product of the state spaces of the component physical systems. Moreover, if we have systems numbered 1 through \textit{n}, and system number \textit{i} is prepared in the state $\rho_i$, then the joint state of the total system is $\rho_1 \otimes \rho_2 \otimes .... \otimes \rho_n$.\\
+
+\subsection{Reduced Density Operator}
+Suppose we have physical systems A and B, whose state is described by a density operator $\rho^{AB}$. The reduced density operator for system A is defined by
+\begin{equation}
+\rho^A \equiv tr_B(\rho^{AB})
+\end{equation}
+where $tr_B$ is the partial trace defined by
+\begin{equation}
+tr_B(| a_1 \rangle \langle a_2 | \otimes | b_1 \rangle \langle b_2 |) = | a_1 \rangle \langle a_2 |\cdot tr(| b_1 \rangle \langle b_2 |) = \langle b_1 | b_2 \rangle| a_1 \rangle \langle a_2 | 
+\end{equation}
+The reduced density operator is so useful as to be virtually indispensable in the analysis of composite quantum systems. \\
+\subsection{Schmidt Decomposition and Purification}
+\href{https://en.wikipedia.org/wiki/Schmidt_decomposition}{Schmidt Decomposition} :  Suppose $|\psi \rangle $ is a pure state of a composite system, $AB$. Then, there exist orthonormal basis $|i_A \rangle$ for system $A$ and orthonormal basis $|i_B \rangle$ of system $B$ such that 
+\begin{equation}
+|\psi \rangle = \sum_i \lambda_i |i_A \rangle|i_B \rangle
+\end{equation}
+where $\lambda_i$ are non-negative real numbers satisfying $\sum_i \lambda_i = 1$ known as \textit{Schmidt Coefficients}. The basis $|i_A\rangle$ and and $|i_B\rangle$ are called the \textit{Schmidt bases} for $A$ and $B$ and the number of $\lambda_i$ is called the \textit{Schmidt Number} for the state $|\psi\rangle$. \\
+\\The Schmidt Decomposition is essentially a restatement of Singular Value Decomposition applied on the coordinate matrix in the standard basis of $A$ and $B$.(Co-ordinate matrix = $\{ c_{i,j}\}$ where $c_{i,j}$ is the coefficient of $|i\rangle \otimes |j\rangle$ in the expansion of $|\psi\rangle$. Here, $|i\rangle $ and $|j\rangle$ are the standard basis of state space of $A$ and $B$. )\\
+Combining it with the reduced density operator, we get 
+\begin{equation}
+\rho^A = \sum_i \lambda_i^2 |i_A \rangle \langle i_A | \text{ and } \rho^B = \sum_i \lambda_i^2 |i_B \rangle \langle i_B | 
+\end{equation}showing that the eigenvalues of $\rho^A$ and $\rho^B$ are same and equal to $\lambda_i^2$ . This leads to one another way to define a pure state apart from the trace definition.\\
+\\Another related technique is \href{https://en.wikipedia.org/wiki/Purification_of_quantum_state}{\it purification}.  Suppose we are given a state $\rho^A$ of a quantum system A. It is possible to introduce another system, which we denote $R$, and define a pure state $|AR\rangle$ for the joint system $AR$ such that $\rho^A = tr_R (|AR\rangle \langle AR|)$. That is, the pure state $|AR\rangle$ reduces to $\rho_A$ when we look at system $A$ alone. This is a purely mathematical procedure, known as purification, which allows us to associate pure states with mixed states. For this reason we call system $R$ a reference system: it is a fictitious system, without a direct physical significance.\\
+The purification of $\rho^A$ is done by finding the spectral decomposition of $\rho^A$ and then taking tensor product each eigenvector with itself. So, 
+\begin{equation}
+\text{if } \rho^A = \sum_i \lambda_i |i\rangle \langle i| \text{ then } |AR\rangle = \sum_i \sqrt{\lambda_i} |i^A\rangle |i^R\rangle 
+\end{equation}This $|AR\rangle$ can easily be seen to be a pure state by Schmidt Decomposition. In such a case, the state space of $R$ will be same as that of $A$. This $R$ is not unique and there will exist infinite number of $R$. An easy example would be by replacing $|i^R\rangle$ by $U|i^R\rangle$ where $U$ is a unitary matrix.(This can be thought of as the transformation of the state space of $R$ from $|i^R\rangle$ to another basis  defined by the unitary matrix $U$.)

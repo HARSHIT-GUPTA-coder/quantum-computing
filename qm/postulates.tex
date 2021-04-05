@@ -1,0 +1,85 @@
+\section{Postulates of Quantum Mechanics}
+Quantum mechanics is a mathematical framework for the development of physical theories. On its own quantum mechanics doesn’t tell you what laws a physical system must obey, but it does provide a mathematical and conceptual framework for the development of such laws.
+\subsection{State Space}
+{\bf Postulate 1: }Associated to any isolated physical system is a complex vector space with inner product (that is, a Hilbert space) known as the state space of the system. The system is completely described by its state vector, which is a unit vector in the system’s state space.\\
+This postulate merely tells us that there will be one which will describe the system, but in general, it is very hard to find the state the system is actually in.\\\\
+Since the state space is a Hilbert space, it will have some basis vectors. So, we can express the state of the system in terms of basis vectors. The most simplest quantum mechanical system is a qubit which has 2 orthonormal basis states generally denoted by {$|0\rangle$} and $|1\rangle$ (in analogy to the bits in the classical computer). So, any state can be written as
+\begin{equation}
+|\psi \rangle =  a|0\rangle + b |1\rangle
+\end{equation}where a and b are complex numbers such that $|\psi \rangle $ is a unit vector. The qubits play the role of bits in a quantum computer. \\
+\subsection{Evolution}
+{\bf Postulate 2: } The evolution of a closed quantum system is described by a unitary transformation. That is, the state |$\psi\rangle$ of the system at time $t_1$ is related to the state |$\psi ' \rangle$ of the system at time $t_2$ by a unitary operator U which depends only on the times $t_1$ and $t_2$ ,
+\begin{equation}
+|\psi'\rangle = U|\psi\rangle
+\end{equation}Similar to the states, quantum mechanics does not tell the U matrix, it just says that it will be a unitary matrix. \\
+In quantum computing, we use qubits and hence any computation must be an evolution of qubits only. This means that operations allowed on a qubit(so that they may be realized in a real system) are Unitary operators. Moreover, in case of single qubits, it turns out that any unitary operator at all can be realized in realistic systems. \\
+The postulate 2 can be re framed in terms of differential equations as the famous {\it \bf Schr$\ddot{o}$dinger Equation}:\\
+{\bf Postulate 2': } The time evolution of the state of a closed quantum system is described by the Schrödinger equation,\\
+\begin{equation}
+i {\hslash}\frac{d|\psi\rangle}{dt}
+= H|\psi\rangle.
+\end{equation}
+In this equation, $\hslash$ is a physical constant known as reduced Planck’s constant whose value is  determined as 1.054571817 $\times$ 10$^{-34}$ . H is a fixed Hermitian operator known as the Hamiltonian of the closed system.//
+If we know the Hamiltonian, we, at least in principle, know the dynamics of the system completely. Also, since Hamiltonian is hermitian, it has a spectral decomposition:\\
+\begin{equation}
+H = \sum _EE|E\rangle\langle E|
+\end{equation}Here, E are the eigenvalues and $|E\rangle$ are the eigenvectors also known as stationary states. The value E denotes the Energy of energy state $|E\rangle$. They are called as stationary states because if the system is present in one of these states, then the system does not change its state(upto a non-significant numerical factor).\\
+Postulate 2' can be reduced to Postulate 2 by solving the differential equation:
+\begin{equation}
+|\psi'\rangle = exp[\frac{-iH(t_2-t_1)}{\hslash}] |\psi\rangle = U(t_2,t_1) |\psi\rangle
+\end{equation}(In this equation, we have taken exponentiation of a matrix. The function f(A) of a normal matrix A is defined as: $f(A) = \sum_i f(\lambda_i) |e_i \rangle$ where $\lambda_i$ are eigenvalues of A and$|e_i \rangle$ are eigenvectors of A).\\ 
+\subsection{Quantum Measurement}
+{\bf Postulate 3: } Quantum measurements are described by a collection $\{ M_m \}$ of measurement operators. These are operators acting on the state space of the system being measured. The index {\it m} refers to the measurement outcomes that may occur in the experiment. If the state of the quantum system is $|\psi\rangle$ immediately before the measurement then the probability that result {\it m} occurs is given by 
+\begin{equation}
+p(m) = \langle \psi| M^\dagger _m M_m |\psi \rangle
+\end{equation}and the state of the system after measurement is 
+\begin{equation}
+\frac{M_m|\psi\rangle}{\sqrt{\langle \psi| M^\dagger _m M_m |\psi \rangle}}
+\end{equation}Since the probabilities must sum to 1, we get the{\it completeness equation}:
+\begin{equation}
+\sum_m  M^\dagger _m M_m = I
+\end{equation}
+
+An important class of measurements are the {\it projective measurements}:  \\\\
+{\bf Projective measuments: }A projective measurement is described by an observable, {\it M} , a Hermitian operator on the state space of the system being observed. The observable has a spectral decomposition,
+\begin{equation}
+M=\sum _m mP_m
+\end{equation}
+where $P_m$ is the projector on the eigenspace of M with eigenvalue {\it m}. By postulate we can easily see that 
+\begin{equation}
+p(m) = \langle \psi| P_m |\psi \rangle \text{ and } 
+|\psi'\rangle = \frac{P_m |\psi\rangle}{\sqrt{p(m}}
+\end{equation}In addition to this, we can calculate the average value and standard deviation of the measurement as \\
+\begin{equation}
+\begin{split}
+ E(M^k) & = \sum_m m^k p(m)\\
+& = \sum_m m^k \langle \psi| P_m |\psi \rangle \\
+& = \langle \psi| \left( \sum_m m^k P_m  \right) |\psi \rangle \\
+& =  \langle \psi| M^k |\psi \rangle
+\end{split}
+\end{equation}noting that standard deviation can be calculated as : 
+\[ |\Delta(M)|^2 = E(M)^2 - E(M^2)\]
+This formulation of measurement and standard deviations in terms of observables gives rise in
+an elegant way to results such as the \href{https://en.wikipedia.org/wiki/Uncertainty_principle}{Heisenberg uncertainty principle}.\\
+An interesting result is that any measurement can be written in the form of product of a Unitary operator and projective measurement. It is easier to show this result using Composite system and hence we discuss it now.
+
+\subsection{Composite Systems}
+{\bf Postulate 4: }The state space of a composite physical system is the tensor product
+of the state spaces of the component physical systems. Moreover, if we have
+systems numbered 1 through {\it n}, and system number {\it i} is prepared in the state $|\psi_i\rangle$, then the joint state of the total system is $|\psi_1\rangle \otimes |\psi_2\rangle \otimes ....\otimes |\psi_n\rangle $.\\\\
+Let us now prove the result that any measurement can be written as the product of Unitary matrix and projective measurement. Let us suppose that the measurement is $M_m$ upon the state space $\mathcal{Q}$. Let there be another state space $\mathcal{M}$ having orthonormal basis $|m\rangle$ in correspondence with the outcomes of $M_m$. \\
+Let us define a unitary operator $U$ such that \\
+\begin{equation}
+U|\psi\rangle |0\rangle = \sum_m M_m |\psi\rangle |m\rangle
+\end{equation}Clearly there will be a unitary operator satisfying this property. Now consider the projective measurement $P_m \equiv I_\mathcal{Q} \otimes |m\rangle \langle m|$. Then,
+\begin{equation}
+\begin{split}
+ P_m U |\psi\rangle |0\rangle &  = \sum_{m'} (I_\mathcal{Q} \otimes |m\rangle \langle m | ) M_ {m'} | \psi\rangle | m' \rangle \\
+& = M_m | \psi \rangle
+\end{split}
+\end{equation}
+Using $M_m|\psi\rangle$ as given by the previous equation, we can easily express $p(m)$ and state after measurement in terms of $U$ and $P_m$. Hence, we can reduce any measurement into the product of a Unitary operator and projective measurement. \\
+Another important consequence of Postulate 4 is {\bf \it entanglement} . This means that the state of a composite system can't be reduced into a product of states of individual systems and hence the state of one system is "dependent" on the state of the other system. For e.g. 
+\[ | \psi \rangle = \frac{|00 \rangle + | 11 \rangle}{\sqrt{2}}\]
+In this, the state of both the individual system will be same i.e. if we measure both the systems, then the outcome will be same. There are a lot of useful consequences and applications of entanglement including \href{https://en.wikipedia.org/wiki/Quantum_teleportation}{Quantum Teleportation} and \href{https://qiskit.org/n bit toffoli gate using cnot gatestextbook/ch-algorithms/superdense-coding.html}{Superdense Coding}.
+\newpage

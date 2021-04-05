@@ -1,0 +1,95 @@
+\section{Universal Quantum gates}
+In the classical domain, it turns out that {\scshape NAND} and {\scshape NOR} are universal gates in the sense that they can be used to form any other gate. But in the quantum case, there is no universal gate but any gate can be approximated to any precision/accuracy using the four gates: Hadamard, phase, $\pi$/8 gate and {\scshape CNOT}. \\
+The proof of universality is broken down in 3 parts: 
+\begin{enumerate}
+\item We decompose any multi-qubit gate into single-qubit gates. This means that we can express any unitary operator  exactly as a product of unitary operators that each acts non-trivially only on a subspace spanned by two computation basis states.
+\item Then, we prove that any two qubit gate can be expressed exactly in terms of single qubit gates and {\scshape CNOT}.
+\item Then we approximate the single qubit gates by using the phase, hadamard and $\pi$/8 gates.
+\end{enumerate}
+
+\subsection{Two-level gates are Universal}
+This is the first step in proving the universality of Hadamard, $\pi$/8, phase and CNOT gates. \\
+We will show that a unitary matrix acting on d-dimensional Hilbert space may be decomposed into a product of two-level unitary matrices.\\
+The basic idea is we recursively eliminate one element from the first column of the matrix until only one element is left by multiplying with some two-level unitary matrices. Then, we do the same thing for all the other columns leaving $I$. Then, the matrix can be expressed as the product of conjugate of the matrices multiplied. These all will be two-level unitary matrices and hence out decomposition will be complete. \\
+Let us consider the case for $3 \times 3$ matrix $U$. Let
+\begin{equation}
+U =  \left[ {\begin{array}{ccc}
+   a & d & g\\
+   b & e & h\\
+    c & f & j
+  \end{array} } \right]
+\end{equation}
+If $b \not= 0$, then multiply by $U_1$ given by
+\begin{equation}
+U_1 =  \left[ {\begin{array}{ccc}
+   \frac{a^*}{\sqrt{|a|^2 + |b|^2}}& \frac{b^*}{\sqrt{|a|^2 + |b|^2}}  & 0\\
+   \frac{b}{\sqrt{|a|^2 + |b|^2}} & \frac{-a}{\sqrt{|a|^2 + |b|^2}} & 0  \\
+   0 & 0 & 1 \\
+  \end{array} } \right]
+\end{equation}
+It is easy to see that this is a two-level unitary matrix. 
+\begin{equation}
+U_1 U = \left[ {\begin{array}{ccc}
+   a' & d' & g'\\
+   0 & e' & h'\\
+    c' & f' & j'
+  \end{array} } \right]
+\end{equation}On, similar lines, now multiply by $U_2$, given by
+\begin{equation}
+\begin{split}
+&\text{if $b = 0$, then } U_2  =  \left[ {\begin{array}{ccc} 
+   a'^* & 0 & 0\\
+   0 & 1 & 0\\
+    0 & 0 & 1
+  \end{array} } \right]
+  \\&\text{else } U_2 =  \left[ {\begin{array}{ccc}
+   \frac{a'^*}{\sqrt{|a'|^2 + |c|^2}} & 0 & \frac{c'^*}{\sqrt{|a'|^2 + |c|^2}}\\
+   0 & 1 & 0\\
+    \frac{c'}{\sqrt{|a'|^2 + |c|^2}} & 0 & \frac{-a'}{\sqrt{|a'|^2 + |c|^2}}
+  \end{array} } \right]
+\end{split}
+\end{equation}This reduces $U$ to
+\begin{equation}
+\begin{split}
+&U_2U_1U = \left[ {\begin{array}{ccc} 
+   1 & 0 & 0\\
+   0 &  e'' & h''\\
+    0 & f'' & j''
+  \end{array} } \right]\\
+&U = U_1^\dagger U_2^\dagger\left[ {\begin{array}{ccc} 
+   1 & 0 & 0\\
+   0 &  e'' & h''\\
+    0 & f'' & j''
+    \end{array} } \right]\\
+\end{split}
+\end{equation}Clearly, all the matrices on the $RHS$ are two-level unitary matrices and hence we have successfully decomposed $U$ in terms of three unitary matrices. \\
+Extending the idea above, we see that to decompose $d$ dimensional unitary matrix, we would need $d(d-1)/2$ two-level matrices or $O(d^2)$ two level matrices.\\
+\subsection{Single Qubit gates and CNOT are universal}
+This is easy to show. The main thing lies in how to transform the given two-level unitary operator into a matrix that has effect only on one qubit. After this, we can just use $C^n(U)$ from the other qubits to this qubit and perform the operation. Then, we can undo the transformation to get the original states of the other qubits.\\
+To perform this transformation, we use {\it Gray codes}. A Gray code connecting s and t is a sequence of binary numbers, starting with s and concluding with t, such that adjacent members of the list differ in exactly one bit. So, we form the Gray code from one of the states on which the given matrix to other. Then, we transform the first state into the second-last member of the list(which is differing from the other state at only one place). These operations may be accomplished using Controlled NOT from the identical qubits to the differing qubit. Since we are using conditional NOTs, this does not change other basis states. Then apply the given controlled two-level matrix(in reduced form i.e. the {$2 \times 2$} matrix that is non-trivial) on the qubit which is different conditioned on the other identical qubits. Then, transform the state back into its original states by again applying the same controlled-NOTs in reverse order.\\\\
+This transformation, operation and then coming back takes $O(n)$ multi-qubit CNOTs along with the Controlled-$U$ operation($U$ is the reduced two-level matrix). Here, $n$ is the number of qubits Since, each CNOT takes $O(n)$ single qubit CNOT gates, it turns out that we would need $O(n^2) $ gates n total to realise the given two-level operation. Any $n$ qubit unitary operator  is $2^n$ dimensional and hence takes $O(4^n)$ two-level unitary operators. So in total, to perform a $n$-qubit operation, we need $O(4^n n^2)$ single qubit gates and CNOTs. This is exponential in the number of qubits!!! And it turns out that there DO exist some unitary operators which need this much gates. 
+\\
+\subsection{Approximating Single-Qubit Gates}
+For approximating, we must first have measure to quantify the approximation i.e. a value which can tell how good the approximation is. In this case, we use the following function as the error function:
+\begin{equation}
+E(U,V) = max_{|\psi\rangle} \| (U-V)|\psi\rangle \|
+\end{equation}Here, $U$ id the target or the actual operator and V is the operator used to approximate it. The error function is quite intuitive and tells us how much correct the approximation is in terms of the maximum error caused by the approximation. An important porperty of this error function is 
+\begin{equation}
+E(U_mU_{m-1}...U_2U_1 , V_mV_{m-1}...V_2V_1) \leq\sum_{j=1}^m E(U_j,V_j)
+\end{equation}This says that the error in approximating multiple operators is at most the sum of individual errors. So, we want to approximate $m$ unitary operators with a total error of $\Delta$, then it is enough to approximate the individual operators upto an error of $\frac{\Delta}{m}$.\\
+Now, we move on to approximate any single qubit unitary operator using Hadamard, phase and $\pi$/8 gates. \\
+In this section, the $\pi/8$ gate is denoted by $T$. The $T$ performs a rotation of $\pi/8$ around the $\hat{z}$ axis. Similarly, the operator $HTH$ performs a rotation of $\pi/8$ around the $\hat{x}$ axis. From this we get
+\begin{equation}
+\begin{split}
+HTH & = e^{\frac{-i\pi X}{8}} \cdot e^{\frac{-i\pi Z}{8}} \\
+& = \left[\cos{\frac{\pi}{8}}I - i\sin{\frac{\pi}{8}}X \right]\left[\cos{\frac{\pi}{8}}I - i\sin{\frac{\pi}{8}}Z \right]\\
+& = cos^2 \frac{\pi}{8} I - i\left[\cos{\frac{\pi}{8}}(X+Z) + \sin{\frac{\pi}{8}}Y \right] \sin{\frac{\pi}{8}}
+\end{split}
+\end{equation}
+This is a rotation in the bloch sphere notation about the axis given by $\overline{n}$ = $(\cos{\frac{\pi}{8}},\sin{\frac{\pi}{8}},\cos{\frac{\pi}{8}})$ through an angle of $\theta$ defined by $\cos{\theta/2} = cos^2 \frac{\pi}{8}$. This $\theta$ is an irrational multiple of $2\pi$ and so any angle can be approximated to any precision using this $\theta$. Also note that $HR_{\overline{n}} (\alpha)H  = R_{\overline{m}}(\alpha)$ where $\overline{m}$ is some vector not aligned with $\overline{n}$ . Since $R_{\overline{n}}(\alpha)$ can be approximated to any precision/accuracy using the $\theta$ defined before, $R_\overline{m}(\alpha)$ can be approximated to any precision/accuracy. So, we may approximate any unitary matrix using  $R_\overline{m}(\alpha)$ and  $R_\overline{n}(\alpha)$ by equation 3.8 for general non-collinear vectors. So, for any arbitary $U$ we have
+\begin{equation}
+U  = R^a_{\overline{n}}R^b_{\overline{m}}R^c_{\overline{n}}
+\end{equation}
+for some whole numbers $a,b$ and $c$. If we have to approximate $U$ to an accuracy of $\epsilon$, then we have to approximate each operator by$\frac{\epsilon}{a+b+c}$.\\
+So, it turns out that we can approximate any unitary operator using CNOT, Hadamard and $\pi$/8 gate. In addition to this, Phase gate is used to increase the fault tolerance of the circuit. So , these four gates form a complete set of universal gates.\\
+\newpage
